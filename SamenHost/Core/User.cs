@@ -86,11 +86,11 @@ namespace SamenHost.Core
             // Listen for request sync
             connection.Listen(PacketType.RequestSync, (packet) =>
             {
-                // Send all the changes 
-                Console.WriteLine("[Join] Catching up " + Username + " with " + this.GetSession().GetHistory().Count + " changes.");
+                // Send a debug message
+                Console.WriteLine("[Join] Catching up " + Username + " with " + this.GetSession().GetAllHistory().Count + " changes.");
 
                 // Send all the history
-                this.GetSession().SendHistory(GetConnection());
+                this.GetSession().SendAllHistory(GetConnection());
             });
 
             // Listen for a object change
@@ -105,10 +105,7 @@ namespace SamenHost.Core
 
                 // Create a new history entry
                 TransformChangeHistory change = new TransformChangeHistory(this, packet.GetString(0), (TransformChangeType) packet.GetInt(1), values);
-                this.GetSession().AddHistory(change);
-
-                // Send the change to everyone
-                change.Broadcast(this.GetSession(), true);
+                this.GetSession().WriteHistory(change);
             });
 
 
@@ -117,10 +114,7 @@ namespace SamenHost.Core
             {
                 // Create a new history entry
                 ObjectDestroyedHistory objectDestroyedHistory = new ObjectDestroyedHistory(this, packet.GetString(0));
-                this.GetSession().AddHistory(objectDestroyedHistory);
-
-                // Send the change to everyone
-                objectDestroyedHistory.Broadcast(this.GetSession(), true);
+                this.GetSession().WriteHistory(objectDestroyedHistory);
             });
         }
 

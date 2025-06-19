@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Sessions\History\TransformChangeHistory.cs" />
     <Compile Include="Core\User.cs" />
-    <Compile Include="Instance.cs" />
     <Compile Include="Internet\Connection.cs" />
     <Compile Include="Internet\Server.cs" />
     <Compile Include="Program.cs" />

@@ -50,30 +50,67 @@ namespace SamenHost.Sessions
             this.initialSceneData = initialSceneData;
         }
 
+        /// <summary>
+        /// List of users in the current session
+        /// </summary>
         private List<User> users = new List<User>();
+
+        /// <summary>
+        /// List of history of the current session
+        /// </summary>
         private List<History> history = new List<History>();
 
+        /// <summary>
+        /// Get a list of all users in this session
+        /// </summary>
+        /// <returns></returns>
         public List<User> GetUsers()
         {
             return users;
         }
 
-        public void AddHistory(History history)
+        /// <summary>
+        /// Add history to this session
+        /// This does NOT broadcast it to the users
+        /// But any new users WILL receive it.
+        /// </summary>
+        /// <param name="history"></param>
+        public void RememberHistory(History history)
         {
             OptimizeHistory(history);
             this.history.Add(history);
         }
 
-        public void SendHistory(Connection connection)
+        /// <summary>
+        /// Add the history to the session, AND broadcast the history to everyone.
+        /// </summary>
+        /// <param name="history"></param>
+        /// <param name="excludeAuthor"></param>
+        public void WriteHistory(History history, bool excludeAuthor = true)
         {
-            foreach (History history in GetHistory())
+            RememberHistory(history);
+            history.Broadcast(this, excludeAuthor);
+        }
+
+
+        public void SendAllHistory(Connection connection)
+        {
+            foreach (History history in GetAllHistory())
             {
                 history.SendAsPacket(connection);
             }
         }
 
-        public void OptimizeHistory(History next)
+
+        /// <summary>
+        /// Optimize the history, while keeping in mind what is coming next.
+        /// </summary>
+        /// <param name="next"></param>
+        private void OptimizeHistory(History next)
         {
+
+            // Future idea, When an object is destroyed in 'next' remove any changes done to it from history.
+
             if (history.Count == 0)
                 return;
 
@@ -83,10 +120,10 @@ namespace SamenHost.Sessions
             {
                 if (last.GetType() == next.GetType())
                 {
-                    TransformChangeHistory transformLast = (TransformChangeHistory) last;
-                    TransformChangeHistory transformNext = (TransformChangeHistory) next;
+                    TransformChangeHistory transformLast = (TransformChangeHistory)last;
+                    TransformChangeHistory transformNext = (TransformChangeHistory)next;
 
-                    if(transformLast.GetObjectId() == transformNext.GetObjectId() && transformLast.GetTransformChangeType() == transformNext.GetTransformChangeType())
+                    if (transformLast.GetObjectId() == transformNext.GetObjectId() && transformLast.GetTransformChangeType() == transformNext.GetTransformChangeType())
                     {
                         history.Remove(last);
                     }
@@ -94,7 +131,11 @@ namespace SamenHost.Sessions
             }
         }
 
-        public List<History> GetHistory()
+        /// <summary>
+        /// Returns a list of all the current history
+        /// </summary>
+        /// <returns></returns>
+        public List<History> GetAllHistory()
         {
             return history;
         }
