@@ -15,7 +15,8 @@ namespace SamenHost
         JoinSession,
         ObjectChange,
         RequestSync,
-        ObjectDestroyed
+        ObjectDestroyed,
+        ObjectDuplicated
     }
 
     public class Connection

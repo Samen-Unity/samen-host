@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sessions\History\ObjectDuplicatedHistory.cs" />
     <Compile Include="Sessions\History\TransformChangeHistory.cs" />
     <Compile Include="Core\User.cs" />
     <Compile Include="Internet\Connection.cs" />

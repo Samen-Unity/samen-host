@@ -108,6 +108,11 @@ namespace SamenHost.Core
                 this.GetSession().WriteHistory(change);
             });
 
+            connection.Listen(PacketType.ObjectDuplicated, (packet) =>
+            {
+                ObjectDuplicatedHistory objectDuplicatedHistory = new ObjectDuplicatedHistory(this, packet.GetString(0), packet.GetString(1));
+                this.GetSession().WriteHistory(objectDuplicatedHistory);
+            });
 
             // Listen for object destroyed
             connection.Listen(PacketType.ObjectDestroyed, (packet) =>
