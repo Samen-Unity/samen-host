@@ -21,6 +21,7 @@ namespace SamenHost.Sessions
         public ChatMessageHistory(ChatMessage chatMessage)
         {
             this.chatMessage = chatMessage;
+            this.author = null;
         }
 
         /// <summary>

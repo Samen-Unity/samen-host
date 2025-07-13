@@ -62,7 +62,7 @@ namespace SamenHost.Chat
                 }
             }
 
-            session.WriteHistory(new ChatMessageHistory(chatMessage));
+            session.WriteHistory(new ChatMessageHistory(chatMessage), false);
         }
 
         /// <summary>

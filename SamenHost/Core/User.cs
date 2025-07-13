@@ -134,8 +134,7 @@ namespace SamenHost.Core
             // Listen for chat messages
             connection.Listen(PacketType.ChatMessage, (packet) =>
             {
-                ChatMessageHistory chatMessageHistory = new ChatMessageHistory(new Chat.ChatMessage(Username, packet.GetString(0)));
-                this.GetSession().WriteHistory(chatMessageHistory);
+                this.GetSession().GetChat().SendMessage(Username, packet.GetString(0));
             });
         }
 
