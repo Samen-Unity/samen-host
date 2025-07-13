@@ -13,7 +13,7 @@ This repository contains the **server (host)** component of Samen, which handles
 
 ---
 
-## Project Status
+## !! Project Status !!
 
 > **This project is in an early development stage.**
 
@@ -21,4 +21,4 @@ This repository contains the **server (host)** component of Samen, which handles
 - Some features are experimental or incomplete
 - Scene synchronization is still being actively refined
 
-> **Always make backups of your Unity projects before using Samen.**
+> **!!! Always make backups of your Unity projects before using Samen. !!!**
