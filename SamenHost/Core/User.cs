@@ -130,6 +130,13 @@ namespace SamenHost.Core
                 ObjectDestroyedHistory objectDestroyedHistory = new ObjectDestroyedHistory(this, packet.GetString(0));
                 this.GetSession().WriteHistory(objectDestroyedHistory);
             });
+
+            // Listen for chat messages
+            connection.Listen(PacketType.ChatMessage, (packet) =>
+            {
+                ChatMessageHistory chatMessageHistory = new ChatMessageHistory(new Chat.ChatMessage(Username, packet.GetString(0)));
+                this.GetSession().WriteHistory(chatMessageHistory);
+            });
         }
 
         private Connection connection;
