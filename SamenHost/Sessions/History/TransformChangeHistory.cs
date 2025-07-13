@@ -39,7 +39,7 @@ namespace SamenHost.Core
         /// <param name="type">The type of change</param>
         /// <param name="values">Arguments, 
         /// Length of 4 for type rotation
-        /// Otherwise 3.</param></param>
+        /// Otherwise 3.</param>
         public TransformChangeHistory(User author, string objectId, TransformChangeType type, float[] values)
         {
             this.author = author;
@@ -93,8 +93,17 @@ namespace SamenHost.Core
     /// </summary>
     public enum TransformChangeType
     {
+        /// <summary>
+        /// A posistion change
+        /// </summary>
         Position,
+        /// <summary>
+        /// A rotation change
+        /// </summary>
         Rotation,
+        /// <summary>
+        /// A scale change
+        /// </summary>
         Scale
     }
 }

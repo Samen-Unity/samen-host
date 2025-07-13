@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SamenHost.Sessions
 {
+    /// <summary>
+    /// Manager that handles all active sessions
+    /// </summary>
     public class SessionManager
     {
         /// <summary>
@@ -36,13 +39,19 @@ namespace SamenHost.Sessions
         }
 
         /// <summary>
-        /// Add a session to the manager.
+        /// Registers a session to the manager.
         /// </summary>
         /// <param name="session"></param>
-        public static void AddSession(Session session)
+        public static void RegisterSession(Session session)
         {
             sessions.Add(session.GetAssetPath(), session);
+            OnSessionAdded?.Invoke(session);
         }
+
+        /// <summary>
+        /// Called whenever a new session is created
+        /// </summary>
+        public static Action<Session> OnSessionAdded;
 
         /// <summary>
         /// Get a session from a specific scene file path.

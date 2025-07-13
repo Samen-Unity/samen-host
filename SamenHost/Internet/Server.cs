@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace SamenHost.Internet
 {
+    /// <summary>
+    /// The Server that handles all incoming connections
+    /// </summary>
     public class Server
     {
         /// <summary>
@@ -25,12 +28,12 @@ namespace SamenHost.Internet
         {
             if(listener != null)
             {
-                Console.WriteLine("Closing server...");
+                Logging.Log("Network", "Closing old server...", LogType.IMPORTANT);
                 listener.Stop();
                 listener = null;
             }
 
-            Console.WriteLine("Starting Server...");
+            Logging.Log("Network", $"Starting server on port {port}...", LogType.INFO);
             listener = new TcpListener(IPAddress.Any, port);
             listener.Start();
 

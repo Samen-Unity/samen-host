@@ -7,27 +7,80 @@ using System.Text;
 using System.Threading.Tasks;
 namespace SamenHost
 {
+
+
+    /// <summary>
+    /// Types of packets
+    /// </summary>
     public enum PacketType
     {
+        /// <summary>
+        /// Authentication packet for username and accept
+        /// </summary>
         Authenticate,
+
+        /// <summary>
+        /// A packet to check if a spesific session exists
+        /// </summary>
         SessionExists,
+
+        /// <summary>
+        /// A packet to create a session
+        /// </summary>
         CreateSession,
+
+        /// <summary>
+        /// A packet to join a session
+        /// </summary>
+        /// 
         JoinSession,
+
+        /// <summary>
+        /// A packet send whenever an object transform was changed
+        /// </summary>
         ObjectChange,
+
+        /// <summary>
+        /// A packet send whenever the client is ready to receive a session's history
+        /// </summary>
         RequestSync,
+
+        /// <summary>
+        /// A packet send whenever an object was destroyed
+        /// </summary>
         ObjectDestroyed,
-        ObjectDuplicated
+
+        /// <summary>
+        /// A packet send whenever an object was duplicated
+        /// </summary>
+        ObjectDuplicated,
+
+        /// <summary>
+        /// A packet for chat messages
+        /// </summary>
+        ChatMessage
     }
 
+    /// <summary>
+    /// An connection with a user
+    /// </summary>
     public class Connection
     {
         private TcpClient client;
 
+        /// <summary>
+        /// The ip of the connection
+        /// </summary>
+        /// <returns></returns>
         public string GetRemoteIp()
         {
             return client.Client.RemoteEndPoint.ToString();
         }
 
+        /// <summary>
+        /// Create a managed connection from a TCP client
+        /// </summary>
+        /// <param name="client"></param>
         public Connection(TcpClient client)
         {
             this.client = client;
@@ -49,13 +102,15 @@ namespace SamenHost
             {
                 client.GetStream().Write(size, 0, 4);
                 client.GetStream().Write(data, 0, data.Length);
-            } catch(Exception e)
+            } catch
             {
-                Console.WriteLine("A connecion was closed.");
                 Dead = true;
             }
         }
 
+        /// <summary>
+        /// If the connection has ended
+        /// </summary>
         public bool Dead;
 
         private int expected = -1;
@@ -141,6 +196,9 @@ namespace SamenHost
         }
     }
 
+    /// <summary>
+    /// A packet from the client
+    /// </summary>
     public class IncomingPacket
     {
         /// <summary>
@@ -183,7 +241,15 @@ namespace SamenHost
             return incomingPacket;
         }
 
+        /// <summary>
+        /// The type of the incoming packet
+        /// </summary>
         public PacketType type;
+
+        /// <summary>
+        /// A packet received from the client
+        /// </summary>
+        /// <param name="type"></param>
         public IncomingPacket(PacketType type)
         {
             this.type = type;
@@ -192,6 +258,10 @@ namespace SamenHost
 
         private List<byte[]> data;
 
+        /// <summary>
+        /// Internal use only.
+        /// </summary>
+        /// <param name="buffer"></param>
         protected void AddData(byte[] buffer)
         {
             data.Add(buffer);
@@ -264,9 +334,15 @@ namespace SamenHost
         }
     }
 
+    /// <summary>
+    /// A packet send to the client
+    /// </summary>
     public class OutgoingPacket
     {
 
+        /// <summary>
+        /// The type of the packet
+        /// </summary>
         public PacketType packetType { private set; get; }
         /// <summary>
         /// Create a packet of a spesific type
@@ -305,6 +381,11 @@ namespace SamenHost
             return this;
         }
 
+        /// <summary>
+        /// Write a float to the packet
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns>The current packet for building</returns>
         public OutgoingPacket WriteFloat(float val)
         {
             WriteIntRaw(4);

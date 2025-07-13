@@ -18,6 +18,11 @@ namespace SamenHost.Core
         public string Username;
 
         
+
+        /// <summary>
+        /// Create a user instance from a connection
+        /// </summary>
+        /// <param name="connection"></param>
         public User(Connection connection)
         {
             this.connection = connection;
@@ -26,7 +31,7 @@ namespace SamenHost.Core
             connection.Listen(PacketType.Authenticate, (packet) =>
             {
                 Username = packet.GetString(0);
-                Console.WriteLine("User authenticated as " + Username);
+                Logging.Log("USER", $"{Username} connected to the server.", LogType.INFO);
 
                 // Response with a sucsess!
                 connection.SendPacket(new OutgoingPacket(PacketType.Authenticate));
@@ -55,7 +60,9 @@ namespace SamenHost.Core
                     initialSceneData: packet.GetString(1));
 
                 // Register the session.
-                SessionManager.AddSession(session);
+                SessionManager.RegisterSession(session);
+
+                Logging.Log("SESSION", $"{Username} created a session for {session.GetAssetPath()}", LogType.IMPORTANT);
             });
 
             // Listen for a join session
@@ -79,7 +86,9 @@ namespace SamenHost.Core
                 {
                     s.GetUsers().Remove(this);
                 }
+
                 session.GetUsers().Add(this);
+                Logging.Log("SESSION", $"{Username} has entered session '{session.GetAssetPath()}'", LogType.INFO);
             });
 
 
@@ -87,7 +96,7 @@ namespace SamenHost.Core
             connection.Listen(PacketType.RequestSync, (packet) =>
             {
                 // Send a debug message
-                Console.WriteLine("[Join] Catching up " + Username + " with " + this.GetSession().GetAllHistory().Count + " changes.");
+                Logging.Log("SESSION", $"Send {Username} {this.GetSession().GetAllHistory().Count} changes to catch up.", LogType.INFO);
 
                 // Send all the history
                 this.GetSession().SendAllHistory(GetConnection());

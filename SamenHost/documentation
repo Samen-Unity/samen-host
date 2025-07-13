@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SamenHost</name>
+    </assembly>
+    <members>
+        <member name="F:SamenHost.Chat.ChatCommand.OnExecute">
+            <summary>
+            User, Arguments. User can be null.
+            </summary>
+        </member>
+        <member name="M:SamenHost.Chat.SessionChat.RegisterCommand(SamenHost.Chat.ChatCommand)">
+            <summary>
+            Add a new command to this chat
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="T:SamenHost.Core.User">
+            <summary>
+            A user is someone that is connect with the server.
+            </summary>
+        </member>
+        <member name="F:SamenHost.Core.User.Username">
+            <summary>
+            The username the user entered.
+            </summary>
+        </member>
+        <member name="M:SamenHost.Core.User.GetConnection">
+            <summary>
+            Get the connection of the user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Core.User.GetSession">
+            <summary>
+            Get the session of the user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SamenHost.Core.TransformChangeHistory">
+            <summary>
+            TransformChangeHistory is a change done to a specific object.
+            This can be the object's rotation, position or scale.
+            </summary>
+        </member>
+        <member name="F:SamenHost.Core.TransformChangeHistory.objectId">
+            <summary>
+            The object that was edited
+            </summary>
+        </member>
+        <member name="F:SamenHost.Core.TransformChangeHistory.type">
+            <summary>
+            The type of change that was done
+            </summary>
+        </member>
+        <member name="F:SamenHost.Core.TransformChangeHistory.values">
+            <summary>
+            Argumentative values.
+            Length of 4 for type  rotation
+            Otherwise 3
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SamenHost.Core.TransformChangeHistory.#ctor(SamenHost.Core.User,System.String,SamenHost.Core.TransformChangeType,System.Single[])" -->
+        <member name="M:SamenHost.Core.TransformChangeHistory.SendAsPacket(SamenHost.Connection)">
+            <summary>
+            Send this transform change as a packet to a specific connection.
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:SamenHost.Core.TransformChangeHistory.GetObjectId">
+            <summary>
+            Get the id of the object that was changed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Core.TransformChangeHistory.GetTransformChangeType">
+            <summary>
+            Returns the type of change.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SamenHost.Core.TransformChangeType">
+            <summary>
+            A type of transform change
+            </summary>
+        </member>
+        <member name="M:SamenHost.Connection.SendPacket(SamenHost.OutgoingPacket)">
+            <summary>
+            Add a length header to the packet and
+            Send a packet to the other connection.
+            </summary>
+            <param name="outgoingPacket"></param>
+        </member>
+        <member name="M:SamenHost.Connection.ReadPackets(System.Int32)">
+            <summary>
+            Reads any incoming packets. This should be called in your update loop!
+            </summary>
+            <param name="maxRead">The maximum amount of packets to read before stopping.</param>
+        </member>
+        <member name="M:SamenHost.Connection.Call(SamenHost.IncomingPacket)">
+            <summary>
+            Executes all functions listening to this packet
+            </summary>
+            <param name="incomingPacket"></param>
+        </member>
+        <member name="M:SamenHost.Connection.Listen(SamenHost.PacketType,System.Action{SamenHost.IncomingPacket})">
+            <summary>
+            Register a new packet listener
+            </summary>
+            <param name="type">The packet type to listen for</param>
+            <param name="action">The function that should be ran whenever a packet was received</param>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.FromBuffer(System.Byte[])">
+            <summary>
+            Create an IncomingPacket from a byte array.
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.GetInt(System.Int32)">
+            <summary>
+            Get an int from a specific field
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.GetString(System.Int32)">
+            <summary>
+            Get an string from a specific field
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.GetFloat(System.Int32)">
+            <summary>
+            Get a float from a spesific field
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.GetByte(System.Int32)">
+            <summary>
+            Get an byte from a specific field
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.IncomingPacket.GetBool(System.Int32)">
+            <summary>
+            Get an bool from a specific field
+            </summary>
+            <param name="field"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.#ctor(SamenHost.PacketType)">
+            <summary>
+            Create a packet of a spesific type
+            </summary>
+            <param name="packetType"></param>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.WriteIntRaw(System.Int32)">
+            <summary>
+            Write an int without a length header.
+            </summary>
+            <param name="val"></param>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.WriteInt(System.Int32)">
+            <summary>
+            Create a new field and write val to it.
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.WriteString(System.String)">
+            <summary>
+            Create a new field and write val to it.
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.WriteByte(System.Byte)">
+            <summary>
+            Create a new field and write val to it.
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.WriteBool(System.Boolean)">
+            <summary>
+            Create a new field and write val to it.
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.OutgoingPacket.GetBytes">
+            <summary>
+            Returns a formatted packet.
+            Without its lenght header.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SamenHost.Internet.Server.listener">
+            <summary>
+            Global instance of the tcp server
+            </summary>
+        </member>
+        <member name="M:SamenHost.Internet.Server.Start(System.Int32)">
+            <summary>
+            Start the server on a specific port.
+            If the server was already running, restart the connection.
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:SamenHost.Internet.Server.AcceptIncomingConnection">
+            <summary>
+            Accept any pending connections
+            </summary>
+        </member>
+        <member name="F:SamenHost.Internet.Server.connections">
+            <summary>
+            List of all connections on the server
+            </summary>
+        </member>
+        <member name="M:SamenHost.Internet.Server.Update">
+            <summary>
+            Accept incoming connections and read incoming packets.
+            </summary>
+        </member>
+        <member name="F:SamenHost.Internet.Server.OnUserConnect">
+            <summary>
+            Executes when a new user connects to the server.
+            </summary>
+        </member>
+        <member name="M:SamenHost.Plugins.Plugin.OnLoad">
+            <summary>
+            Runs when the plugin is loaded before samen starts up.
+            </summary>
+        </member>
+        <member name="T:SamenHost.Sessions.History">
+            <summary>
+            History is the base of a change.
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.History.author">
+            <summary>
+            The user that made the history
+            </summary>
+        </member>
+        <member name="M:SamenHost.Sessions.History.SendAsPacket(SamenHost.Connection)">
+            <summary>
+            Send the history as a packet to a user
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.History.Broadcast(SamenHost.Sessions.Session,System.Boolean)">
+            <summary>
+            Broadcast the change to everyone in a specific session
+            </summary>
+            <param name="session">The session to broadcast from</param>
+            <param name="excludeAuthor">If the author should be excluded from the packet
+            This is almost always the case, as we dont want to send the update that they themselfs just made.
+            That would cause stuttering as the server is always behind.</param>
+        </member>
+        <member name="T:SamenHost.Sessions.ObjectDestroyedHistory">
+            <summary>
+            ObjectDestroyedHistory is a history of an object being deleted
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.ObjectDestroyedHistory.objectId">
+            <summary>
+            The object that was deleted
+            </summary>
+        </member>
+        <member name="M:SamenHost.Sessions.ObjectDestroyedHistory.#ctor(SamenHost.Core.User,System.String)">
+            <summary>
+            A history where an object got deleted
+            </summary>
+            <param name="author">The user that deleted the object</param>
+            <param name="objectId">The object that was deleted</param>
+        </member>
+        <member name="M:SamenHost.Sessions.ObjectDestroyedHistory.SendAsPacket(SamenHost.Connection)">
+            <summary>
+            Send the change to a specific connection.
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="F:SamenHost.Sessions.ObjectDuplicatedHistory.sourceId">
+            <summary>
+            The id of the object that was duplicated
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.ObjectDuplicatedHistory.duplicatedId">
+            <summary>
+            The id of the new object that was created
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.Session.assetPath">
+            <summary>
+            The path to the scene file.
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.Session.initialSceneData">
+            <summary>
+            The data that was part of the scene when the session was created.
+            </summary>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.GetAssetPath">
+            <summary>
+            Returns the path to the scene file on the client side. 
+            Also used as an ID.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.GetInitialSceneData">
+            <summary>
+            Returns the data that was part of the scene when the session was created.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.#ctor(System.String,System.String)">
+            <summary>
+            Create a session.
+            </summary>
+            <param name="assetPath">The path to the scene file on the client (Also the ID)</param>
+            <param name="initialSceneData">The data that was part of the initial scene</param>
+        </member>
+        <member name="F:SamenHost.Sessions.Session.users">
+            <summary>
+            List of users in the current session
+            </summary>
+        </member>
+        <member name="F:SamenHost.Sessions.Session.history">
+            <summary>
+            List of history of the current session
+            </summary>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.GetUsers">
+            <summary>
+            Get a list of all users in this session
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.RememberHistory(SamenHost.Sessions.History)">
+            <summary>
+            Add history to this session
+            This does NOT broadcast it to the users
+            But any new users WILL receive it.
+            </summary>
+            <param name="history"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.WriteHistory(SamenHost.Sessions.History,System.Boolean)">
+            <summary>
+            Add the history to the session, AND broadcast the history to everyone.
+            </summary>
+            <param name="history"></param>
+            <param name="excludeAuthor"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.SendAllHistory(SamenHost.Connection)">
+            <summary>
+            Send all the history in the session as packets to a connection
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.OptimizeHistory(SamenHost.Sessions.History)">
+            <summary>
+            Optimize the history, while keeping in mind what is coming next.
+            </summary>
+            <param name="next"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.Session.GetAllHistory">
+            <summary>
+            Returns a list of all the current history
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:SamenHost.Sessions.SessionManager.sessions">
+            <summary>
+            All sessions
+            </summary>
+        </member>
+        <member name="M:SamenHost.Sessions.SessionManager.SessionExists(System.String)">
+            <summary>
+            Check if a session exists from a specific scene path
+            </summary>
+            <param name="path">The path of the scene on the client side.</param>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Sessions.SessionManager.GetSessions">
+            <summary>
+            Return all sessions
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SamenHost.Sessions.SessionManager.RegisterSession(SamenHost.Sessions.Session)">
+            <summary>
+            Registers a session to the manager.
+            </summary>
+            <param name="session"></param>
+        </member>
+        <member name="M:SamenHost.Sessions.SessionManager.GetSession(System.String)">
+            <summary>
+            Get a session from a specific scene file path.
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,12 +1,12 @@
-﻿using SamenHost.Core;
-using System;
+﻿using SamenHost.Chat;
+using SamenHost.Core;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SamenHost.Sessions
 {
+    /// <summary>
+    /// A session of Samen, providing live edits for one spesific scene.
+    /// </summary>
     public class Session
     {
 
@@ -48,6 +48,18 @@ namespace SamenHost.Sessions
         {
             this.assetPath = assetPath;
             this.initialSceneData = initialSceneData;
+
+            sessionChat = new SessionChat(this);
+        }
+
+        /// <summary>
+        /// Get a user by a specific name
+        /// </summary>
+        /// <param name="name">The name of the user</param>
+        /// <returns>Returns the user if found, otherwise null</returns>
+        public User GetUserByName(string name)
+        {
+            return users.FirstOrDefault(user => user.Username == name);
         }
 
         /// <summary>
@@ -93,6 +105,10 @@ namespace SamenHost.Sessions
         }
 
 
+        /// <summary>
+        /// Send all the history in the session as packets to a connection
+        /// </summary>
+        /// <param name="connection"></param>
         public void SendAllHistory(Connection connection)
         {
             foreach (History history in GetAllHistory())
@@ -138,6 +154,17 @@ namespace SamenHost.Sessions
         public List<History> GetAllHistory()
         {
             return history;
+        }
+
+        private SessionChat sessionChat;
+
+        /// <summary>
+        /// Get the chat linked with the current session
+        /// </summary>
+        /// <returns>The chat created when the session was created.</returns>
+        public SessionChat GetChat()
+        {
+            return sessionChat;
         }
     }
 }
