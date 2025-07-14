@@ -1,4 +1,6 @@
-﻿using SamenHost.Core;
+﻿using Microsoft.Win32;
+using SamenHost.Chat;
+using SamenHost.Core;
 using SamenHost.Internet;
 using SamenHost.Plugins;
 using System;
@@ -19,6 +21,7 @@ namespace SamenHost
              *  Temp code, should be replace with a launcher at some point.
              */
 
+            BuildInCommands.Register();
             Logging.Log("Samen", $"Starting samen version {SamenVersion}", LogType.INFO);
 
             DateTime loadStartTime = DateTime.Now;

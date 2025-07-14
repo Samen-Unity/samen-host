@@ -18,7 +18,6 @@ namespace SamenHost.Sessions
             this.assetPath = assetPath;
             this.ids = ids;
 
-            Console.WriteLine("Prefab created with assetID " + assetPath + " and " + ids.Length + " ids.");
         }
 
         public override void SendAsPacket(Connection connection)
