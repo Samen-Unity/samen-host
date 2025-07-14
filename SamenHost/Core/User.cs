@@ -144,6 +144,21 @@ namespace SamenHost.Core
             {
                 this.GetSession().GetChat().SendMessage(Username, packet.GetString(0));
             });
+
+            connection.Listen(PacketType.PrefabCreated, (packet) =>
+            {
+                string assetPath = packet.GetString(0);
+                int idCount = packet.GetInt(1);
+
+                string[] ids = new string[idCount];
+                for(int i = 0; i < idCount; i++)
+                {
+                    ids[i] = packet.GetString(2 + i);
+                }
+
+                PrefabCreatedHistory prefabCreatedHistory = new PrefabCreatedHistory(this, assetPath, ids);
+                this.GetSession().WriteHistory(prefabCreatedHistory);
+            });
         }
 
         private Connection connection;

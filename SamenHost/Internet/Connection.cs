@@ -63,7 +63,12 @@ namespace SamenHost
         /// <summary>
         /// A parent of an object was changed.
         /// </summary>
-        ParentChange
+        ParentChange,
+
+        /// <summary>
+        /// A prefab was added into the scene
+        /// </summary>
+        PrefabCreated
     }
 
     /// <summary>

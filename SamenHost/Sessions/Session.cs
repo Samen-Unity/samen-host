@@ -2,6 +2,7 @@
 using SamenHost.Core;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 namespace SamenHost.Sessions
 {
     /// <summary>
@@ -111,6 +112,8 @@ namespace SamenHost.Sessions
         /// <param name="connection"></param>
         public void SendAllHistory(Connection connection)
         {
+            bool Timelaps = true;
+
             foreach (History history in GetAllHistory())
             {
                 history.SendAsPacket(connection);
@@ -124,8 +127,6 @@ namespace SamenHost.Sessions
         /// <param name="next"></param>
         private void OptimizeHistory(History next)
         {
-
-            // Future idea, When an object is destroyed in 'next' remove any changes done to it from history.
 
             if (history.Count == 0)
                 return;
