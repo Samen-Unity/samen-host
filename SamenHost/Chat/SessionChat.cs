@@ -57,7 +57,7 @@ namespace SamenHost.Chat
                     if (chatCommand.GetCommand().ToLower() == command.ToLower())
                     {
                         User user = session.GetUserByName(chatMessage.GetAuthor());
-                        chatCommand.OnExecute?.Invoke(user, arguments);
+                        chatCommand.OnExecute?.Invoke(new CommandContext(user, arguments));
                     }
                 }
             }
