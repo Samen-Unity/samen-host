@@ -8,18 +8,32 @@ using System.Threading.Tasks;
 
 namespace SamenHost.Sessions
 {
+
+    /// <summary>
+    /// A history to keep track of prefabs created
+    /// </summary>
     public class PrefabCreatedHistory : History
     {
         string assetPath;
         string[] ids;
+
+        /// <summary>
+        ///  A history to keep track of prefabs created
+        /// </summary>
+        /// <param name="author">The user who made the prefab</param>
+        /// <param name="assetPath">The prefab file path</param>
+        /// <param name="ids">The ids of the newly generated objects</param>
         public PrefabCreatedHistory(User author, string assetPath, string[] ids)
         {
             this.author = author;
             this.assetPath = assetPath;
             this.ids = ids;
-
         }
 
+        /// <summary>
+        /// Send this history as a packet
+        /// </summary>
+        /// <param name="connection"></param>
         public override void SendAsPacket(Connection connection)
         {
             OutgoingPacket packet = new OutgoingPacket(PacketType.PrefabCreated);

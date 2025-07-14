@@ -48,7 +48,6 @@ namespace SamenHost.Chat
     {
         private User user;
         private string[] arguments;
-        private Session session;
 
         /// <summary>
         /// Get the user that performed the command

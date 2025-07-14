@@ -51,8 +51,6 @@ namespace SamenHost.Internet
 
                 Connection connection = new Connection(tcpClient);
                 User user = new User(connection);
-                OnUserConnect?.Invoke(user);
-
                 connections.Add(connection);
             }
         }

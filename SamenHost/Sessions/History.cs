@@ -29,13 +29,13 @@ namespace SamenHost.Sessions
         /// </summary>
         /// <param name="session">The session to broadcast from</param>
         /// <param name="excludeAuthor">If the author should be excluded from the packet
-        /// This is almost always the case, as we dont want to send the update that they themselfs just made.
+        /// This is almost always the case, as we don't want to send the update that they them self just made.
         /// That would cause stuttering as the server is always behind.</param>
         public void Broadcast(Session session, bool excludeAuthor = true)
         {
             foreach (User user in session.GetUsers())
             {
-                if (author != null && user.Username == author.Username && excludeAuthor)
+                if (author != null && user.GetUsername() == author.GetUsername() && excludeAuthor)
                     continue;
 
                 SendAsPacket(user.GetConnection());

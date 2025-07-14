@@ -140,6 +140,9 @@ namespace SamenHost
             int read = 0;
             while (read < maxRead)
             {
+                if (Dead)
+                    return;
+
                 if (expected == -1 && client.Available >= 4)
                 {
                     byte[] buffer = new byte[4];
@@ -159,6 +162,9 @@ namespace SamenHost
                     expected = -1;;
 
                     Call(incomingPacket);
+
+                    if (Dead)
+                        return;
                 }
                 else return;
 
@@ -173,7 +179,7 @@ namespace SamenHost
         /// <param name="incomingPacket"></param>
         public void Call(IncomingPacket incomingPacket)
         {
-            foreach (IncomingPacketListener listener in listeners)
+            foreach (IncomingPacketListener listener in listeners.ToList())
             {
                 if (listener.type == incomingPacket.type)
                 {

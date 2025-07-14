@@ -24,6 +24,8 @@ namespace SamenHost
             BuildInCommands.Register();
             Logging.Log("Samen", $"Starting samen version {SamenVersion}", LogType.INFO);
 
+            Authentication.LoadFile();
+
             DateTime loadStartTime = DateTime.Now;
 
             Logging.Log("Startup", $"Loading Plugins...", LogType.INFO);

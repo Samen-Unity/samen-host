@@ -60,7 +60,7 @@ namespace SamenHost.Sessions
         /// <returns>Returns the user if found, otherwise null</returns>
         public User GetUserByName(string name)
         {
-            return users.FirstOrDefault(user => user.Username == name);
+            return users.FirstOrDefault(user => user.GetUsername() == name);
         }
 
         /// <summary>
@@ -112,8 +112,6 @@ namespace SamenHost.Sessions
         /// <param name="connection"></param>
         public void SendAllHistory(Connection connection)
         {
-            bool Timelaps = true;
-
             foreach (History history in GetAllHistory())
             {
                 history.SendAsPacket(connection);

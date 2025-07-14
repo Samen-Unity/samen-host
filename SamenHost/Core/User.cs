@@ -1,4 +1,5 @@
-﻿using SamenHost.Sessions;
+﻿using SamenHost.Internet;
+using SamenHost.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,15 @@ namespace SamenHost.Core
         /// <summary>
         /// The username the user entered.
         /// </summary>
-        public string Username;
-
+        private UserAccount account;
+        /// <summary>
+        /// Get the username of the user
+        /// </summary>
+        /// <returns></returns>
+        public string GetUsername()
+        {
+            return account.username;
+        }
         
 
         /// <summary>
@@ -30,13 +38,39 @@ namespace SamenHost.Core
             // Listen for authentication
             connection.Listen(PacketType.Authenticate, (packet) =>
             {
-                Username = packet.GetString(0);
-                Logging.Log("USER", $"{Username} connected to the server.", LogType.INFO);
+                string username = packet.GetString(0);
+                string password = packet.GetString(1);
 
-                // Response with a sucsess!
-                connection.SendPacket(new OutgoingPacket(PacketType.Authenticate));
+                UserAccount validAccount = Authentication.GetAccount(username, password);
+                connection.SendPacket(new OutgoingPacket(PacketType.Authenticate).WriteBool(validAccount != null));
+
+                if (validAccount != null)
+                {
+                    account = validAccount;
+                    Logging.Log("USER", $"{GetUsername()} connected to the server.", LogType.INFO); 
+                    Server.OnUserConnect?.Invoke(this);
+                    GiveAccess();
+                }
+                else
+                {
+                    // Garbage collection will get your ass
+                    connection.Dead = true;
+                }
             });
+        }
 
+        /// <summary>
+        /// Check if the user has a spesific permission
+        /// </summary>
+        /// <param name="permission"></param>
+        /// <returns></returns>
+        public bool HasPermission(string permission)
+        {
+            return account.permissions.Contains(permission);
+        }
+
+        private void GiveAccess()
+        {
             // Listen for session exists status
             connection.Listen(PacketType.SessionExists, (packet) =>
             {
@@ -62,7 +96,7 @@ namespace SamenHost.Core
                 // Register the session.
                 SessionManager.RegisterSession(session);
 
-                Logging.Log("SESSION", $"{Username} created a session for {session.GetAssetPath()}", LogType.IMPORTANT);
+                Logging.Log("SESSION", $"{GetUsername()} created a session for {session.GetAssetPath()}", LogType.IMPORTANT);
             });
 
             // Listen for a join session
@@ -82,14 +116,14 @@ namespace SamenHost.Core
                 connection.SendPacket(response);
 
                 // Assign the user to this new session
-                foreach(Session s in SessionManager.GetSessions())
+                foreach (Session s in SessionManager.GetSessions())
                 {
                     s.GetUsers().Remove(this);
                 }
 
                 session.GetUsers().Add(this);
-                Logging.Log("SESSION", $"{Username} has entered session '{session.GetAssetPath()}'", LogType.INFO);
-                session.GetChat().SendMessage(Username + " has entered the session.");
+                Logging.Log("SESSION", $"{GetUsername()} has entered session '{session.GetAssetPath()}'", LogType.INFO);
+                session.GetChat().SendMessage(GetUsername() + " has entered the session.");
             });
 
 
@@ -97,7 +131,7 @@ namespace SamenHost.Core
             connection.Listen(PacketType.RequestSync, (packet) =>
             {
                 // Send a debug message
-                Logging.Log("SESSION", $"Send {Username} {this.GetSession().GetAllHistory().Count} changes to catch up.", LogType.INFO);
+                Logging.Log("SESSION", $"Send {GetUsername()} {this.GetSession().GetAllHistory().Count} changes to catch up.", LogType.INFO);
 
                 // Send all the history
                 this.GetSession().SendAllHistory(GetConnection());
@@ -114,7 +148,7 @@ namespace SamenHost.Core
                 }
 
                 // Create a new history entry
-                TransformChangeHistory change = new TransformChangeHistory(this, packet.GetString(0), (TransformChangeType) packet.GetInt(1), values);
+                TransformChangeHistory change = new TransformChangeHistory(this, packet.GetString(0), (TransformChangeType)packet.GetInt(1), values);
                 this.GetSession().WriteHistory(change);
             });
 
@@ -142,7 +176,7 @@ namespace SamenHost.Core
             // Listen for chat messages
             connection.Listen(PacketType.ChatMessage, (packet) =>
             {
-                this.GetSession().GetChat().SendMessage(Username, packet.GetString(0));
+                this.GetSession().GetChat().SendMessage(GetUsername(), packet.GetString(0));
             });
 
             connection.Listen(PacketType.PrefabCreated, (packet) =>
@@ -151,7 +185,7 @@ namespace SamenHost.Core
                 int idCount = packet.GetInt(1);
 
                 string[] ids = new string[idCount];
-                for(int i = 0; i < idCount; i++)
+                for (int i = 0; i < idCount; i++)
                 {
                     ids[i] = packet.GetString(2 + i);
                 }
