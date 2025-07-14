@@ -43,6 +43,7 @@ namespace SamenHost.Chat
         {
             OnMessageSend?.Invoke(chatMessage);
 
+            session.WriteHistory(new ChatMessageHistory(chatMessage), false);
             if (chatMessage.GetContent().StartsWith("/"))
             {
                 string full = chatMessage.GetContent().Substring(1);
@@ -61,8 +62,6 @@ namespace SamenHost.Chat
                     }
                 }
             }
-
-            session.WriteHistory(new ChatMessageHistory(chatMessage), false);
         }
 
         /// <summary>

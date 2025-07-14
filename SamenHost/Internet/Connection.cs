@@ -92,6 +92,9 @@ namespace SamenHost
         /// <param name="outgoingPacket"></param>
         public void SendPacket(OutgoingPacket outgoingPacket)
         {
+            if (Dead)
+                return;
+
             byte[] data = outgoingPacket.GetBytes();
             byte[] size = BitConverter.GetBytes(data.Length);
 
@@ -121,6 +124,9 @@ namespace SamenHost
         /// <param name="maxRead">The maximum amount of packets to read before stopping.</param>
         public void ReadPackets(int maxRead = 1000)
         {
+            if (Dead)
+                return;
+         
             int read = 0;
             while (read < maxRead)
             {

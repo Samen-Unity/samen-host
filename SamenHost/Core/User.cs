@@ -89,6 +89,7 @@ namespace SamenHost.Core
 
                 session.GetUsers().Add(this);
                 Logging.Log("SESSION", $"{Username} has entered session '{session.GetAssetPath()}'", LogType.INFO);
+                session.GetChat().SendMessage(Username + " has entered the session.");
             });
 
 

@@ -46,20 +46,45 @@ namespace SamenHost.Chat
     /// </summary>
     public class CommandContext
     {
-        /// <summary>
-        /// The user that ran the command
-        /// </summary>
-        public User user { private set; get; }
+        private User user;
+        private string[] arguments;
+        private Session session;
 
         /// <summary>
-        /// The arguments provided with the command
+        /// Get the user that performed the command
         /// </summary>
-        public string[] arguments { private set; get; }
+        /// <returns></returns>
+        public User GetUser()
+        {
+            return user;
+        }
 
         /// <summary>
-        /// The current session the user is in
+        /// Get the arguments in the command
         /// </summary>
-        public Session session { private set; get; }
+        /// <returns></returns>
+        public string[] GetArguments()
+        {
+            return arguments;
+        }
+
+        /// <summary>
+        /// Get the current user session
+        /// </summary>
+        /// <returns></returns>
+        public Session GetSession()
+        {
+            return user.GetSession();
+        }
+
+        /// <summary>
+        /// Get the current user session's chat
+        /// </summary>
+        /// <returns></returns>
+        public SessionChat GetChat()
+        {
+            return GetSession().GetChat();
+        }
 
         /// <summary>
         /// Minimum command context
@@ -70,8 +95,6 @@ namespace SamenHost.Chat
         {
             this.user = user;
             this.arguments = arguments;
-            this.session = user.GetSession();
-
         }
     }
 }

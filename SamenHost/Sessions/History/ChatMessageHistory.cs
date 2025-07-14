@@ -1,4 +1,5 @@
 ﻿using SamenHost.Chat;
+using SamenHost.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

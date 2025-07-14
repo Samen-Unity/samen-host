@@ -35,7 +35,7 @@ namespace SamenHost.Sessions
         {
             foreach (User user in session.GetUsers())
             {
-                if (user.Username == author.Username && excludeAuthor)
+                if (author != null && user.Username == author.Username && excludeAuthor)
                     continue;
 
                 SendAsPacket(user.GetConnection());
