@@ -132,6 +132,13 @@ namespace SamenHost.Core
                 this.GetSession().WriteHistory(objectDestroyedHistory);
             });
 
+            connection.Listen(PacketType.ParentChange, (packet) =>
+            {
+                // Create a new history entry
+                ParentChangeHistory parentChangeHistory = new ParentChangeHistory(this, packet.GetString(0), packet.GetString(1));
+                this.GetSession().WriteHistory(parentChangeHistory);
+            });
+
             // Listen for chat messages
             connection.Listen(PacketType.ChatMessage, (packet) =>
             {

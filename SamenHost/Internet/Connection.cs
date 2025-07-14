@@ -58,7 +58,12 @@ namespace SamenHost
         /// <summary>
         /// A packet for chat messages
         /// </summary>
-        ChatMessage
+        ChatMessage,
+
+        /// <summary>
+        /// A parent of an object was changed.
+        /// </summary>
+        ParentChange
     }
 
     /// <summary>
