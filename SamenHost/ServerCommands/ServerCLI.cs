@@ -72,7 +72,7 @@ namespace SamenHost.ServerCommands
         public void AddUser(string name, string password)
         {
             string pass = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
-            Logging.Log(space, $"Did not add a user with name {name} identified by {pass}", LogType.INFO);
+            Internet.Authentication.AddAccount(name, pass);
         }
         /// <summary>
         /// Quit the program
