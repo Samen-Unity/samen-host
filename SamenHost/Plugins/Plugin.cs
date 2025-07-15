@@ -21,5 +21,14 @@ namespace SamenHost.Plugins
         {
             
         }
+
+        /// <summary>
+        /// Runs whenever a new session is created
+        /// </summary>
+        /// <param name="session"></param>
+        public virtual void OnSessionStart(Session session)
+        {
+
+        }
     }
 }

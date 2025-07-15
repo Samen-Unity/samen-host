@@ -68,9 +68,14 @@ namespace SamenHost
         /// <summary>
         /// A prefab was added into the scene
         /// </summary>
-        PrefabCreated
-    }
+        PrefabCreated,
 
+        /// <summary>
+        /// A packet for a user-ping
+        /// </summary>
+        Ping
+    }
+    
     /// <summary>
     /// An connection with a user
     /// </summary>

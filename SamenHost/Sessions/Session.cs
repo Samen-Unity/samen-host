@@ -105,6 +105,17 @@ namespace SamenHost.Sessions
             history.Broadcast(this, excludeAuthor);
         }
 
+        /// <summary>
+        /// Send a packet to ever user in the session.
+        /// </summary>
+        /// <param name="packet"></param>
+        public void BroadcastPacket(OutgoingPacket packet)
+        {
+            foreach(User user in users)
+            {
+                user.GetConnection().SendPacket(packet);
+            }
+        }
 
         /// <summary>
         /// Send all the history in the session as packets to a connection

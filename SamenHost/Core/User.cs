@@ -99,6 +99,15 @@ namespace SamenHost.Core
                 Logging.Log("SESSION", $"{GetUsername()} created a session for {session.GetAssetPath()}", LogType.IMPORTANT);
             });
 
+            connection.Listen(PacketType.Ping, (packet) =>
+            {
+                this.GetSession().BroadcastPacket(new OutgoingPacket(PacketType.Ping)
+                    .WriteFloat(packet.GetFloat(0))
+                    .WriteFloat(packet.GetFloat(1))
+                    .WriteFloat(packet.GetFloat(2))
+                    );
+            });
+                
             // Listen for a join session
             connection.Listen(PacketType.JoinSession, (packet) =>
             {

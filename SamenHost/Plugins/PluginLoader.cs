@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SamenHost.Internet;
+using SamenHost.Sessions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -78,6 +80,9 @@ namespace SamenHost.Plugins
                     Plugin plugin = (Plugin)Activator.CreateInstance(type);
                     PluginInstance pluginInstance = new PluginInstance(plugin, configuration);
                     activePluginInstances.Add(pluginInstance);
+
+                    // Register any events
+                    SessionManager.OnSessionAdded += plugin.OnSessionStart;
 
                     Logging.Log("Plugin Loader", "Passing control to plugin startup method...", LogType.INFO);
                     pluginInstance.plugin.OnLoad();
