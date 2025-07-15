@@ -42,6 +42,17 @@ namespace SamenHost.Internet
 
         static List<UserAccount> accounts;
 
+        public static void AddAccount(string username, string password)
+        {
+            accounts.Add(new UserAccount(username, password));
+
+            JsonSerializerOptions options = new JsonSerializerOptions();
+            options.WriteIndented = true;
+
+            File.WriteAllText("accounts.json", JsonSerializer.Serialize(accounts, options));
+            Logging.Log("AUTH", $"Added new account with username '{username}'", LogType.IMPORTANT);
+        }
+
         /// <summary>
         /// Get a specific account from a username and password
         /// </summary>
@@ -76,5 +87,16 @@ namespace SamenHost.Internet
         /// The permissions for the account
         /// </summary>
         public string[] permissions { get; set; }
+
+        public UserAccount(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
+
+        public UserAccount()
+        {
+
+        }
     }
 }
