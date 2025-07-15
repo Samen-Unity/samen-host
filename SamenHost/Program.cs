@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using SamenHost.Chat;
 using SamenHost.Core;
 using SamenHost.Internet;

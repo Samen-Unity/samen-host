@@ -1,4 +1,4 @@
-﻿using SamenHost.Sessions;
+using SamenHost.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
