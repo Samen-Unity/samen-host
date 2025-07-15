@@ -3,6 +3,7 @@ using SamenHost.Chat;
 using SamenHost.Core;
 using SamenHost.Internet;
 using SamenHost.Plugins;
+using SamenHost.ServerCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace SamenHost
 {
     internal class Program
     {
-
         public static int SamenVersion = 100;
         static void Main(string[] args)
         {
@@ -44,7 +44,7 @@ namespace SamenHost
 
                 Console.WriteLine("");
                 Console.WriteLine("Are you sure? Y/N (N)");
-
+                // Use Quit command
                 var key = Console.ReadKey();
                 if (key.Key != ConsoleKey.Y)
                 {
@@ -59,6 +59,8 @@ namespace SamenHost
                     Environment.Exit(-1);
                 }
             };
+
+            ServerCLI.Begin();
 
             while (true)
             {
