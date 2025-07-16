@@ -41,7 +41,7 @@ namespace SamenHost.ServerCommands
                 if (input != null)
                 {
                     string[] parts = Regex.Matches(input, @"""[^""]+|\b\w+\b").Cast<Match>().Select(b=>b.Value.Trim('"')).ToArray();
-                    System.Reflection.MethodInfo? method = this.GetType().GetMethod(parts[0]);
+                    System.Reflection.MethodInfo? method = typeof(ServerCommands).GetMethod(parts[0]);
 
                     if (method != null)
                     {
@@ -63,34 +63,36 @@ namespace SamenHost.ServerCommands
             }
         }
         #region Callable function from the command line
-
-        /// <summary>
-        /// Add a user
-        /// </summary>
-        /// <param name="name">name of the user</param>
-        /// <param name="password">unencrypted password for the user</param>
-        public void AddUser(string name, string password)
+        class ServerCommands
         {
-            string pass = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
-            Internet.Authentication.AddAccount(name, pass);
-        }
-        /// <summary>
-        /// Quit the program
-        /// </summary>
-        public void Quit()
-        {
-            Environment.Exit(0);
-        }
-        /// <summary>
-        /// Broadcast a chat message to all sessions in this server
-        /// </summary>
-        /// <param name="message">The message to broadcast</param>
-        public void Broadcast(string message)
-        {
-            Logging.Log(space, $"Broadcast: {message}", LogType.INFO);
-            foreach (Session session in SessionManager.GetSessions())
-                session.GetChat().SendMessage(message);
-        }
+            /// <summary>
+            /// Add a user
+            /// </summary>
+            /// <param name="name">name of the user</param>
+            /// <param name="password">unencrypted password for the user</param>
+            public static void AddUser(string name, string password)
+            {
+                string pass = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(password)));
+                Internet.Authentication.AddAccount(name, pass);
+            }
+            /// <summary>
+            /// Quit the program
+            /// </summary>
+            public static void Quit()
+            {
+                Environment.Exit(0);
+            }
+            /// <summary>
+            /// Broadcast a chat message to all sessions in this server
+            /// </summary>
+            /// <param name="message">The message to broadcast</param>
+            public static void Broadcast(string message)
+            {
+                Logging.Log(space, $"Broadcast: {message}", LogType.INFO);
+                foreach (Session session in SessionManager.GetSessions())
+                    session.GetChat().SendMessage(message);
+            }
+        };
         #endregion
     }
 }
