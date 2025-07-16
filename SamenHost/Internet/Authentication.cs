@@ -23,16 +23,8 @@ namespace SamenHost.Internet
         {
             if(!File.Exists("accounts.json"))
             {
-                Logging.Log("Authentication", "Creating default login file. Make sure to edit before using!", LogType.IMPORTANT);
-                string defaultContent = @"
-[
-    {
-        ""username"": ""Visitor"",
-        ""password"": ""Welcome"",
-        ""permissions"": [""example.permission""]
-    }
-]";
-                File.WriteAllText("accounts.json", defaultContent);
+                Logging.Log("Authentication", "Creating default login file.", LogType.IMPORTANT);
+                File.WriteAllText("accounts.json", "[]");
             }
 
             accounts = JsonSerializer.Deserialize<List<UserAccount>>(File.ReadAllText("accounts.json"));
@@ -41,6 +33,13 @@ namespace SamenHost.Internet
 
 
         static List<UserAccount> accounts;
+
+        /// <summary>
+        /// The amount of accounts active.
+        /// </summary>
+        /// <returns></returns>
+        public static int AccountCount()
+        { return accounts.Count(); }
 
         public static void AddAccount(string username, string password)
         {

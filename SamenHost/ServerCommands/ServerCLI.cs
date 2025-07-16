@@ -92,6 +92,11 @@ namespace SamenHost.ServerCommands
                 foreach (Session session in SessionManager.GetSessions())
                     session.GetChat().SendMessage(message);
             }
+
+            public static void Help()
+            {
+                Logging.Log(space, $"Help: Display this message\nQuit: Exit the program\nAddUser [name] [password]: Add a user to the users file\nBroadcast [message]: Send a chat message to all sessions in this server", LogType.INFO);
+            }
         };
         #endregion
     }

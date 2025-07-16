@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SamenHost
@@ -36,6 +37,12 @@ namespace SamenHost
             ServerCLI.Begin();
 
             Logging.Log("Samen", $"Startup completed in {Math.Ceiling(DateTime.Now.Subtract(loadStartTime).TotalMilliseconds)}ms!", LogType.IMPORTANT);
+
+            if (Authentication.AccountCount() == 0)
+            {
+                Thread.Sleep(100);
+                Logging.Log("Samen", $"You seem to have no accounts setup, do 'AddUser [username] [password]' to add one!", LogType.IMPORTANT);
+            }
 
             while (true)
             {
