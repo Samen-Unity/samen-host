@@ -39,7 +39,11 @@ namespace SamenHost.Internet
         /// </summary>
         /// <returns></returns>
         public static int AccountCount()
-        { return accounts.Count(); }
+        { 
+            if(accounts == null)
+                return 0;
+
+            return accounts.Count(); }
 
         public static void AddAccount(string username, string password)
         {
@@ -60,6 +64,9 @@ namespace SamenHost.Internet
         /// <returns>The account if found, otherwise null</returns>
         public static UserAccount GetAccount(string username, string password)
         {
+            if(!Program.configuration.EnableAuthentication ?? false)
+                return new UserAccount(username, "offline");
+
             return accounts.FirstOrDefault((account) =>
             {
                 return account.username == username && account.password == password;

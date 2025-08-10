@@ -42,9 +42,9 @@ namespace SamenHost.Core
                 string password = packet.GetString(1);
 
                 UserAccount validAccount = Authentication.GetAccount(username, password);
-                connection.SendPacket(new OutgoingPacket(PacketType.Authenticate).WriteBool(validAccount != null));
+                connection.SendPacket(new OutgoingPacket(PacketType.Authenticate).WriteBool(validAccount != null || !(Program.configuration.EnableAuthentication ?? true)));
 
-                if (validAccount != null)
+                if (validAccount != null || !(Program.configuration.EnableAuthentication ?? true))
                 {
                     account = validAccount;
                     Logging.Log("USER", $"{GetUsername()} connected to the server.", LogType.INFO); 
