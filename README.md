@@ -10,6 +10,7 @@ This repository contains the **server (host)** component of Samen, which handles
 - Session creation
 - Transformation, Duplication and Deletion synchronization
 - Plugin system for easy customizing
+- User authentication
 
 ---
 
