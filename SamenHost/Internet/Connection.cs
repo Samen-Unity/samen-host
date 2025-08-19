@@ -78,7 +78,11 @@ namespace SamenHost
         /// <summary>
         /// Component was changed
         /// </summary>
-        ComponentUpdated
+        ComponentUpdated,
+
+        ComponentAdded,
+
+        ComponentRemoved
     }
     
     /// <summary>

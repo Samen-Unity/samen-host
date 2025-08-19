@@ -212,6 +212,24 @@ namespace SamenHost.Core
                 ComponentUpdateHistory history = new ComponentUpdateHistory(this, objectId, component, json);
                 this.GetSession().WriteHistory(history);
             });
+
+            connection.Listen(PacketType.ComponentAdded, (packet) =>
+            {
+                string objectId = packet.GetString(0);
+                string component = packet.GetString(1);
+
+                ComponentAddedHistory history = new ComponentAddedHistory(this, objectId, component);
+                this.GetSession().WriteHistory(history);
+            });
+
+            connection.Listen(PacketType.ComponentRemoved, (packet) =>
+            {
+                string objectId = packet.GetString(0);
+                string component = packet.GetString(1);
+
+                ComponentRemovedHistory history = new ComponentRemovedHistory(this, objectId, component);
+                this.GetSession().WriteHistory(history);
+            });
         }
 
         private Connection connection;
