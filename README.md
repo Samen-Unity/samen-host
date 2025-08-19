@@ -1,25 +1,21 @@
-# Samen (Host)
+# 🌐 Samen Server
 
-**Samen** is a tool for Unity that allows multiple users to work **simultaneously in the same scene**, in real-time.
+Samen Server powers real-time collaboration for Unity projects.  
+It manages the scene data and synchronizes changes between multiple connected clients.
 
-This repository contains the **server (host)** component of Samen, which handles:
----
+## 🚀 Getting Started
 
-## Features
+1. [Download the latest server release](https://github.com/Samen-Unity/samen-host/releases)  
+2. Run the executable or build from source  
+3. Share your server IP with teammates using the Samen Client  
 
-- Session creation
-- Transformation, Duplication and Deletion synchronization
-- Plugin system for easy customizing
-- User authentication
+## 🔌 Compatibility
 
----
+✅ Compatible with Client `v0.3.x` (protocol version 2)  
 
-## !! Project Status !!
+> See full compatibility details in the [main Samen repo](https://github.com/Samen-Unity/samen)
 
-> **This project is in an early development stage.**
+## 📬 Contact & Support
 
-- Expect breaking changes and instability
-- Some features are experimental or incomplete
-- Scene synchronization is still being actively refined
-
-> **!!! Always make backups of your Unity projects before using Samen. !!!**
+Have ideas or issues?  
+→ Join the [Samen Discord](https://discord.gg/2W5ndZPGf9)  
