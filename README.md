@@ -13,7 +13,7 @@ It manages the scene data and synchronizes changes between multiple connected cl
 
 ✅ Compatible with Client `v0.3.x` (protocol version 2)  
 
-> See full compatibility details in the [main Samen repo](https://github.com/Samen-Unity/samen)
+> See full compatibility details on the [Main Page](https://github.com/Samen-Unity/)
 
 ## 📬 Contact & Support
 
