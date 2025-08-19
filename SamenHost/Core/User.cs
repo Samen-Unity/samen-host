@@ -202,6 +202,16 @@ namespace SamenHost.Core
                 PrefabCreatedHistory prefabCreatedHistory = new PrefabCreatedHistory(this, assetPath, ids);
                 this.GetSession().WriteHistory(prefabCreatedHistory);
             });
+
+            connection.Listen(PacketType.ComponentUpdated, (packet) =>
+            {
+                string objectId = packet.GetString(0);
+                string component = packet.GetString(1);
+                string json = packet.GetString(2);
+
+                ComponentUpdateHistory history = new ComponentUpdateHistory(this, objectId, component, json);
+                this.GetSession().WriteHistory(history);
+            });
         }
 
         private Connection connection;

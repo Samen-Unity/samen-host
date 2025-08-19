@@ -73,7 +73,12 @@ namespace SamenHost
         /// <summary>
         /// A packet for a user-ping
         /// </summary>
-        Ping
+        Ping,
+
+        /// <summary>
+        /// Component was changed
+        /// </summary>
+        ComponentUpdated
     }
     
     /// <summary>
