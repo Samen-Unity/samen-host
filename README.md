@@ -16,7 +16,7 @@ Check the current [version compatibility chart](https://github.com/Samen-Unity#-
 
 ## 📬 Contact & Support
 Stuck?  
-→ Read the [Wiki](https://github.com/Samen-Unity/samen-host/wiki)
+→ Read the [Host Wiki](https://github.com/Samen-Unity/samen-host/wiki)
 
 Have ideas or issues?  
 → Join the [Samen Discord](https://discord.gg/2W5ndZPGf9)  
