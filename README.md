@@ -11,11 +11,12 @@ It manages the scene data and synchronizes changes between multiple connected cl
 
 ## 🔌 Compatibility
 
-✅ Compatible with Client `v0.3.x` (protocol version 2)  
-
-> See full compatibility details on the [Main Page](https://github.com/Samen-Unity/)
+Check the current [version compatibility chart](https://github.com/Samen-Unity#-version-compatibility) for client-server compatibility.  
+*Compatibility depends on matching protocol versions.*
 
 ## 📬 Contact & Support
+Stuck?  
+→ Read the [Wiki](https://github.com/Samen-Unity/samen-host/wiki)
 
 Have ideas or issues?  
 → Join the [Samen Discord](https://discord.gg/2W5ndZPGf9)  
