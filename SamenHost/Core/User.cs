@@ -33,7 +33,7 @@ namespace SamenHost.Core
         /// <param name="connection"></param>
         public User(Connection connection)
         {
-            this.connection = connection;
+            this.connection = connection;   
 
             // Listen for authentication
             connection.Listen(PacketType.Authenticate, (packet) =>
@@ -201,34 +201,6 @@ namespace SamenHost.Core
 
                 PrefabCreatedHistory prefabCreatedHistory = new PrefabCreatedHistory(this, assetPath, ids);
                 this.GetSession().WriteHistory(prefabCreatedHistory);
-            });
-
-            connection.Listen(PacketType.ComponentUpdated, (packet) =>
-            {
-                string objectId = packet.GetString(0);
-                string component = packet.GetString(1);
-                string json = packet.GetString(2);
-
-                ComponentUpdateHistory history = new ComponentUpdateHistory(this, objectId, component, json);
-                this.GetSession().WriteHistory(history);
-            });
-
-            connection.Listen(PacketType.ComponentAdded, (packet) =>
-            {
-                string objectId = packet.GetString(0);
-                string component = packet.GetString(1);
-
-                ComponentAddedHistory history = new ComponentAddedHistory(this, objectId, component);
-                this.GetSession().WriteHistory(history);
-            });
-
-            connection.Listen(PacketType.ComponentRemoved, (packet) =>
-            {
-                string objectId = packet.GetString(0);
-                string component = packet.GetString(1);
-
-                ComponentRemovedHistory history = new ComponentRemovedHistory(this, objectId, component);
-                this.GetSession().WriteHistory(history);
             });
         }
 
