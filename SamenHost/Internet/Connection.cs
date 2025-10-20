@@ -12,68 +12,68 @@ namespace SamenHost
     /// <summary>
     /// Types of packets
     /// </summary>
-    public enum PacketType
+    public enum PacketType : int
     {
         /// <summary>
         /// Authentication packet for username and accept
         /// </summary>
-        Authenticate,
+        Authenticate = 0,
 
         /// <summary>
         /// A packet to check if a spesific session exists
         /// </summary>
-        SessionExists,
+        SessionExists = 1,
 
         /// <summary>
         /// A packet to create a session
         /// </summary>
-        CreateSession,
+        CreateSession = 2,
 
         /// <summary>
         /// A packet to join a session
         /// </summary>
         /// 
-        JoinSession,
+        JoinSession = 3,
 
         /// <summary>
         /// A packet send whenever an object transform was changed
         /// </summary>
-        ObjectChange,
+        ObjectChange = 4,
 
         /// <summary>
         /// A packet send whenever the client is ready to receive a session's history
         /// </summary>
-        RequestSync,
+        RequestSync = 5,
 
         /// <summary>
         /// A packet send whenever an object was destroyed
         /// </summary>
-        ObjectDestroyed,
+        ObjectDestroyed = 6,
 
         /// <summary>
         /// A packet send whenever an object was duplicated
         /// </summary>
-        ObjectDuplicated,
+        ObjectDuplicated = 7,
 
         /// <summary>
         /// A packet for chat messages
         /// </summary>
-        ChatMessage,
+        ChatMessage = 8,
 
         /// <summary>
         /// A parent of an object was changed.
         /// </summary>
-        ParentChange,
+        ParentChange = 9,
 
         /// <summary>
         /// A prefab was added into the scene
         /// </summary>
-        PrefabCreated,
+        PrefabCreated = 10,
 
         /// <summary>
         /// A packet for a user-ping
         /// </summary>
-        Ping
+        Ping = 11
     }
     
     /// <summary>
