@@ -17,6 +17,9 @@ namespace SamenHost.Core
         /// The port that samen should run on.
         /// </summary>
         public int? ServerPort { get; set; }
+        /// <summary>
+        /// If authentication should be enabled or not
+        /// </summary>
         public bool? EnableAuthentication { get; set; }
 
         /// <summary>

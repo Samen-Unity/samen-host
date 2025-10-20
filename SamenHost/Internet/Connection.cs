@@ -213,10 +213,16 @@ namespace SamenHost
 
     class IncomingPacketListener
     {
-        public PacketType type;
+        public int type;
         public Action<IncomingPacket> @delegate;
 
         public IncomingPacketListener(PacketType type, Action<IncomingPacket> @delegate)
+        {
+            this.type = (int) type;
+            this.@delegate = @delegate;
+        }
+
+        public IncomingPacketListener(int type, Action<IncomingPacket> @delegate)
         {
             this.type = type;
             this.@delegate = @delegate;
@@ -243,7 +249,7 @@ namespace SamenHost
 
             int type = BitConverter.ToInt32(typeBuffer, 0);
 
-            IncomingPacket incomingPacket = new IncomingPacket((PacketType)type);
+            IncomingPacket incomingPacket = new IncomingPacket(type);
             int index = 4;
 
             while (index < buffer.Length)
@@ -271,13 +277,13 @@ namespace SamenHost
         /// <summary>
         /// The type of the incoming packet
         /// </summary>
-        public PacketType type;
+        public int type;
 
         /// <summary>
         /// A packet received from the client
         /// </summary>
         /// <param name="type"></param>
-        public IncomingPacket(PacketType type)
+        public IncomingPacket(int type)
         {
             this.type = type;
             data = new List<byte[]>();
@@ -370,15 +376,24 @@ namespace SamenHost
         /// <summary>
         /// The type of the packet
         /// </summary>
-        public PacketType packetType { private set; get; }
+        public int packetType { private set; get; }
         /// <summary>
         /// Create a packet of a spesific type
         /// </summary>
         /// <param name="packetType"></param>
-        public OutgoingPacket(PacketType packetType)
+        public OutgoingPacket(PacketType packetType) : this((int) packetType)
+        {
+
+        }
+
+        /// <summary>
+        /// Create an outgoing packet
+        /// </summary>
+        /// <param name="packetType"></param>
+        public OutgoingPacket(int packetType)
         {
             this.packetType = packetType;
-            int type = (int)packetType;
+            int type = packetType;
 
             byte[] buffer = new byte[4];
             buffer = BitConverter.GetBytes(type);

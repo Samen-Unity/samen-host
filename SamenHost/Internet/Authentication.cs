@@ -45,6 +45,11 @@ namespace SamenHost.Internet
 
             return accounts.Count(); }
 
+        /// <summary>
+        /// Add an account to the accounts file
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public static void AddAccount(string username, string password)
         {
             accounts.Add(new UserAccount(username, password));
@@ -94,12 +99,20 @@ namespace SamenHost.Internet
         /// </summary>
         public string[] permissions { get; set; }
 
+        /// <summary>
+        /// An account for a user
+        /// </summary>
+        /// <param name="username">The username of the user</param>
+        /// <param name="password">The password of the user</param>
         public UserAccount(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
 
+        /// <summary>
+        /// An account for a user
+        /// </summary>
         public UserAccount()
         {
 
